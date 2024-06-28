@@ -1,10 +1,3 @@
-const descargaCv = document.getElementById("descargaCv");
-
-descargaCv.addEventListener("click", function () {
-    const pdfPath = "/assets/FullStack_Valentin_Carballo.pdf"; // Ruta ajustada
-    window.open(pdfPath, '_blank');
-});
-
 $(document).ready(function () {
     $(".owl-carousel").owlCarousel({
         loop: true,
