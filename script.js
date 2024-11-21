@@ -1,4 +1,23 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const text = "Bienvenid@s, soy Valentin Carballo";
+    const typedTextSpan = document.querySelector("#typed-text");
+    const cursorSpan = document.querySelector(".cursor");
 
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            typedTextSpan.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 100);
+        } else {
+            cursorSpan.style.display = 'none';
+        }
+    }
+
+    if (typedTextSpan) {
+        setTimeout(type, 1000);
+    }
+});
 document.getElementById('menu-toggle').addEventListener('click', function() {
     const menu = document.querySelector('nav ul');
     menu.classList.toggle('hidden');
