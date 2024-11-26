@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Valentin Carballo">
     <meta name="description" content="Developer, Fullstack, .NET, SQL">
     <title>Valentin Carballo | Developer</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" type="image/x-icon" href="./assets/fotoPerfil.png">
@@ -23,65 +25,106 @@
         }
     </script>
 </head>
+
 <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-    <nav class="bg-white dark:bg-gray-800 shadow-md">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-md dark:bg-gray-800 dark:bg-opacity-70 shadow-lg">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
-                <a href="#" class="flex items-center space-x-2">
-                    <img src="./assets/fotoPerfil.png" alt="logo de la web" class="w-12 h-12 rounded-full">
-                </a>
-                <button class="md:hidden" id="menu-toggle">
-                    <i class="bi bi-list text-2xl"></i>
+                <a href="./assets/NETDeveloperValentin.pdf" target="_blank"
+                        class="bg-white text-blue-600 px-6 rounded-full font-semibold hover:bg-blue-100 transition inline-flex items-center mt-4 fade-in">
+                        <i class="bi bi-file-earmark-arrow-down mr-2"></i> CV
+                    </a>
+                <button id="menu-toggle" class="md:hidden p-2">
+                    <svg class="h-6 w-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
                 </button>
-                <ul class="hidden md:flex space-x-4">
-                    <li><a href="#sobre-mi" class="hover:text-blue-500 transition">Sobre mi</a></li>
-                    <li><a href="#experiencia" class="hover:text-blue-500 transition">Experiencia</a></li>
-                    <li><a href="#proyectos" class="hover:text-blue-500 transition">Proyectos</a></li>
+                <ul id="menu-items" class="md:flex space-x-8 hidden md:space-x-8 absolute md:relative top-full left-0 right-0 md:top-auto bg-white md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent p-4 md:p-0 shadow-md md:shadow-none justify-end">
+                    <li class="relative py-2 md:py-0">
+                        <a href="#sobre-mi" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-300">Sobre mi</a>
+                    </li>
+                    <li class="relative py-2 md:py-0">
+                        <a href="#habilidades" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-300">Habilidades</a>
+                    </li>
+                    <li class="relative py-2 md:py-0">
+                        <a href="#experiencia" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-300">Experiencia</a>
+                    </li>
+                    <li class="relative py-2 md:py-0">
+                        <a href="#proyectos" class="text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-300">Proyectos</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="bg-gray-800 text-white py-20 text-center">
-        <h1 class="text-4xl font-bold mb-4"><span id="typed-text"></span><span class="cursor">|</span></h1>
-        <a href="./assets/NETDeveloperValentin.pdf" target="_blank" class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-100 transition inline-flex items-center">
-            <i class="bi bi-file-earmark-arrow-down mr-2"></i> CV
-        </a>
+    <header id="sobre-mi" class="relative w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in-out">
+        <div id="background" class="absolute inset-0 bg-gray-800 transition-all duration-500 ease-in-out"></div>
+        <div class="max-w-4xl w-full text-center z-10 py-16">
+            <div id="photoContainer" class="relative mb-8 transition-all duration-1000 ease-in-out">
+                <div class="absolute inset-0 bg-white rounded-full opacity-75 blur-2xl"></div>
+                <img src="./assets/fotoLinkedinJPG.png" alt="Valentin Carballo"
+                    class="relative z-10 mx-auto rounded-full w-64 h-64 object-cover">
+            </div>
+            <div class="space-y-4">
+                <h1 class="text-4xl font-bold mb-4 text-white"><span id="typed-text"></span><span class="cursor">|</span></h1>
+                <button id="toggleButton"
+                    class="bg-white text-blue-600 hover:bg-blue-600 hover:text-white transition-colors px-6 py-2 rounded-full font-semibold">
+                    Conoce más sobre mí
+                </button>
+            </div>
+            <div id="infoText" class="mt-8 text-white opacity-0 transition-opacity duration-1000 hidden">
+                <p class="text-lg fade-in">
+                    ¡Hola! Entré al mundo del desarrollo atraído por el funcionamiento de las aplicaciones web y
+                    móviles. Me intrigaba cómo un simple botón en mi celular o computadora podía facilitar acciones tan
+                    importantes como inscribirme a la facultad o comprar cosas, y así descubrí mi vocación.
+                </p>
+                <p class="text-lg fade-in">
+                    Disfruto enormemente creando soluciones que son cruciales para satisfacer las necesidades de los usuarios.
+                    Trabajar como fullstack me permite manejar tanto el frontend como el backend para desarrollar
+                    soluciones completas y funcionales.
+                </p>
+                <p class="text-lg fade-in">
+                    Actualmente, me especializo en .NET y encuentro un amplio campo de posibilidades para crear
+                    aplicaciones escalables y robustas. Siempre estoy buscando aprender más y estoy abierto a explorar nuevos
+                    lenguajes y frameworks que me permitan seguir creciendo profesionalmente.
+                </p>
+                <p class="text-lg fade-in">
+                    Estoy emocionado por las oportunidades que el futuro tiene para ofrecer y estoy comprometido con
+                    continuar aprendiendo y mejorando en este apasionante campo del desarrollo de software.
+                </p>
+                
+            </div>
+        </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <section id="sobre-mi" class="mb-16">
-            <h2 class="text-3xl font-bold mb-4 text-center">Conoce sobre mi</h2>
-            <p class="text-lg leading-relaxed">
-                ¡Hola! Entré al mundo del desarrollo atraído por el funcionamiento de las aplicaciones web y móviles. Me
-                intrigaba cómo un simple botón en mi celular o computadora podía facilitar acciones tan importantes como
-                inscribirme a la facultad o comprar cosas, y así descubrí mi vocación. Disfruto enormemente creando
-                soluciones que son cruciales para satisfacer las necesidades de los usuarios.
-
-                Disfruto trabajando como fullstack, manejando tanto el frontend como el backend para desarrollar
-                soluciones completas y funcionales.
-
-                Actualmente, me especializo en .NET y encuentro un amplio campo de posibilidades para crear aplicaciones
-                escalables y robustas. Siempre estoy buscando aprender más y estoy abierto a explorar nuevos lenguajes y
-                frameworks que me permitan seguir creciendo profesionalmente.
-
-                Estoy emocionado por las oportunidades que el futuro tiene para ofrecer y estoy comprometido con
-                continuar aprendiendo y mejorando en este apasionante campo del desarrollo de software.
-            </p>
-        </section>
-
         <section id="habilidades" class="mb-16">
             <h2 class="text-3xl font-bold mb-8 text-center">Habilidades</h2>
             <div class="grid grid-cols-3 md:grid-cols-5 gap-8">
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/javascript-1.svg" alt="Logo JavaScript" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/html-1.svg" alt="Logo HTML" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/microsoft-net.svg" alt="Logo .NET" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/jquery-4.svg" alt="Logo Jquery" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/microsoft-sql-server-1.svg" alt="Logo SQL SERVER" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/c--4.svg" alt="Logo C#" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/css-3.svg" alt="Logo CSS" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/bootstrap-5-1.svg" alt="Logo BOOTSTRAP" class="w-16 h-16"></div>
-                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/git-bash.svg" alt="Logo GIT" class="w-16 h-16"></div>
+                <div class="flex justify-center items-center"><img
+                        src="https://cdn.worldvectorlogo.com/logos/javascript-1.svg" alt="Logo JavaScript"
+                        class="w-16 h-16"></div>
+                <div class="flex justify-center items-center"><img
+                        src="https://cdn.worldvectorlogo.com/logos/html-1.svg" alt="Logo HTML" class="w-16 h-16"></div>
+                <div class="flex justify-center items-center"><img
+                        src="https://cdn.worldvectorlogo.com/logos/microsoft-net.svg" alt="Logo .NET" class="w-16 h-16">
+                </div>
+                <div class="flex justify-center items-center"><img
+                        src="https://cdn.worldvectorlogo.com/logos/jquery-4.svg" alt="Logo Jquery" class="w-16 h-16">
+                </div>
+                <div class="flex justify-center items-center"><img
+                        src="https://cdn.worldvectorlogo.com/logos/microsoft-sql-server-1.svg" alt="Logo SQL SERVER"
+                        class="w-16 h-16"></div>
+                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/c--4.svg"
+                        alt="Logo C#" class="w-16 h-16"></div>
+                <div class="flex justify-center items-center"><img src="https://cdn.worldvectorlogo.com/logos/css-3.svg"
+                        alt="Logo CSS" class="w-16 h-16"></div>
+                <div class="flex justify-center items-center"><img
+                        src="https://cdn.worldvectorlogo.com/logos/bootstrap-5-1.svg" alt="Logo BOOTSTRAP"
+                        class="w-16 h-16"></div>
+                <div class="flex justify-center items-center"><img
+                        src="https://cdn.worldvectorlogo.com/logos/git-bash.svg" alt="Logo GIT" class="w-16 h-16"></div>
             </div>
         </section>
 
@@ -92,79 +135,117 @@
                 <h4 class="text-xl mb-2">OSDOP</h4>
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Marzo 2022 - Actualmente</p>
                 <ul class="list-disc pl-5 space-y-2">
-                    <li>Desarrollo y mantenimiento de aplicaciones web en .NET MVC: Participo activamente en el mantenimiento y mejora de una aplicación web, asegurando su rendimiento y eficacia. Además, contribuyo a la actualización de proyectos para lograr mayor rapidez y eficiencia.</li>
-                    <li>Colaboración interdepartamental en proyectos nuevos: Establezco comunicación efectiva con diferentes áreas de la empresa para comprender sus necesidades y requerimientos. Utilizando esta información, llevo a cabo el desarrollo de proyectos nuevos según sus especificaciones.</li>
-                    <li>Gestión de bases de datos SQL Server: Realizo consultas, creación de tablas y procedimientos almacenados (PA) en SQL Server para respaldar las necesidades de los proyectos en los que estoy involucrado.</li>
+                    <li>Desarrollo y mantenimiento de aplicaciones web en .NET MVC: Participo activamente en el
+                        mantenimiento y mejora de una aplicación web, asegurando su rendimiento y eficacia. Además,
+                        contribuyo a la actualización de proyectos para lograr mayor rapidez y eficiencia.</li>
+                    <li>Colaboración interdepartamental en proyectos nuevos: Establezco comunicación efectiva con
+                        diferentes áreas de la empresa para comprender sus necesidades y requerimientos. Utilizando esta
+                        información, llevo a cabo el desarrollo de proyectos nuevos según sus especificaciones.</li>
+                    <li>Gestión de bases de datos SQL Server: Realizo consultas, creación de tablas y procedimientos
+                        almacenados (PA) en SQL Server para respaldar las necesidades de los proyectos en los que estoy
+                        involucrado.</li>
                 </ul>
             </div>
         </section>
 
         <section id="proyectos" class="py-16 bg-gray-100 dark:bg-gray-800">
             <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">Mis proyectos recientes</h2>
+                <h2 class="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">Mis proyectos recientes
+                </h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Proyecto 1 -->
-                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
-                        <img src="https://img.freepik.com/vector-gratis/plantilla-logotipo-padel-profesional_23-2149222275.jpg?t=st=1719504968~exp=1719508568~hmac=4da8e387468f2aecf1803a44ffab03c2b63e516f05ee2135c2437e577ac1dfe9&w=740" alt="App padel" class="w-full h-48 object-cover">
+                    <div
+                        class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                        <img src="https://img.freepik.com/vector-gratis/plantilla-logotipo-padel-profesional_23-2149222275.jpg?t=st=1719504968~exp=1719508568~hmac=4da8e387468f2aecf1803a44ffab03c2b63e516f05ee2135c2437e577ac1dfe9&w=740"
+                            alt="App padel" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">App Padel</h3>
-                            <p class="text-gray-600 dark:text-gray-300 mb-4">Aplicación web para gestionar partidos y torneos de pádel.</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Aplicación web para gestionar partidos y
+                                torneos de pádel.</p>
                             <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 rounded text-sm">.NET</span>
-                                <span class="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100 rounded text-sm">C#</span>
-                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100 rounded text-sm">JavaScript</span>
-                                <span class="px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100 rounded text-sm">SQL Server</span>
-                                <span class="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100 rounded text-sm">React</span>
+                                <span
+                                    class="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 rounded text-sm">.NET</span>
+                                <span
+                                    class="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100 rounded text-sm">C#</span>
+                                <span
+                                    class="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100 rounded text-sm">JavaScript</span>
+                                <span
+                                    class="px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100 rounded text-sm">SQL
+                                    Server</span>
+                                <span
+                                    class="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100 rounded text-sm">React</span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <!-- <a href="https://github.com/valencarballo1/PadelAPP" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 transition duration-300">
                                     <i class="bi bi-github"></i> Código
                                 </a> -->
-                                <a href="https://padelistico.netlify.app/" target="_blank" rel="noopener noreferrer" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                                <a href="https://padelistico.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                                     Ver Demo
                                 </a>
                             </div>
                         </div>
                     </div>
-        
+
                     <!-- Proyecto 2 -->
-                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
-                        <img src="https://img.freepik.com/vector-gratis/hucha_53876-25494.jpg?t=st=1719504995~exp=1719508595~hmac=b9b3fe3eeda15cb0ef87e98b6431080ec9d24dad7892c87a93a9a2b9777dcea7&w=740" alt="Llevando mis cuentas" class="w-full h-48 object-cover">
+                    <div
+                        class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                        <img src="https://img.freepik.com/vector-gratis/hucha_53876-25494.jpg?t=st=1719504995~exp=1719508595~hmac=b9b3fe3eeda15cb0ef87e98b6431080ec9d24dad7892c87a93a9a2b9777dcea7&w=740"
+                            alt="Llevando mis cuentas" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">Llevando mis cuentas</h3>
-                            <p class="text-gray-600 dark:text-gray-300 mb-4">Aplicación para gestionar finanzas personales y llevar un control de gastos.</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Aplicación para gestionar finanzas
+                                personales y llevar un control de gastos.</p>
                             <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100 rounded text-sm">ASP.NET</span>
-                                <span class="px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100 rounded text-sm">SQL Server</span>
-                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100 rounded text-sm">Bootstrap</span>
+                                <span
+                                    class="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100 rounded text-sm">ASP.NET</span>
+                                <span
+                                    class="px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100 rounded text-sm">SQL
+                                    Server</span>
+                                <span
+                                    class="px-2 py-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100 rounded text-sm">Bootstrap</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <a href="https://github.com/valencarballo1/LlevandoMisCuentas" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 transition duration-300">
+                                <a href="https://github.com/valencarballo1/LlevandoMisCuentas" target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 transition duration-300">
                                     <i class="bi bi-github"></i> Código
                                 </a>
-                                <a href="http://www.llevandomiscuentas.somee.com/" target="_blank" rel="noopener noreferrer" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                                <a href="http://www.llevandomiscuentas.somee.com/" target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                                     Ver Demo
                                 </a>
                             </div>
                         </div>
                     </div>
-        
+
                     <!-- Proyecto 3 -->
-                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
-                        <img src="https://img.freepik.com/vector-gratis/construccion-marco-ilustracion-vectorial_8829-2765.jpg?t=st=1719505040~exp=1719508640~hmac=2dcf2e60f0ff64fbc3896121b04418f8dae4c3d87b8dd832984ef32053d6b13d&w=1380" alt="HTML, CSS y Bootstrap" class="w-full h-48 object-cover">
+                    <div
+                        class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                        <img src="https://img.freepik.com/vector-gratis/construccion-marco-ilustracion-vectorial_8829-2765.jpg?t=st=1719505040~exp=1719508640~hmac=2dcf2e60f0ff64fbc3896121b04418f8dae4c3d87b8dd832984ef32053d6b13d&w=1380"
+                            alt="HTML, CSS y Bootstrap" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">Diseño Web Responsivo</h3>
-                            <p class="text-gray-600 dark:text-gray-300 mb-4">Proyecto de muestra utilizando HTML, CSS y Bootstrap para crear diseños web responsivos.</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Proyecto de muestra utilizando HTML, CSS y
+                                Bootstrap para crear diseños web responsivos.</p>
                             <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="px-2 py-1 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 rounded text-sm">HTML5</span>
-                                <span class="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 rounded text-sm">CSS3</span>
-                                <span class="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100 rounded text-sm">Bootstrap</span>
+                                <span
+                                    class="px-2 py-1 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 rounded text-sm">HTML5</span>
+                                <span
+                                    class="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 rounded text-sm">CSS3</span>
+                                <span
+                                    class="px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100 rounded text-sm">Bootstrap</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <a href="https://github.com/valencarballo1/PruebaPage" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 transition duration-300">
+                                <a href="https://github.com/valencarballo1/PruebaPage" target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 transition duration-300">
                                     <i class="bi bi-github"></i> Código
                                 </a>
-                                <a href="https://valencarballo1.github.io/PruebaPage/AbbalColor.html" target="_blank" rel="noopener noreferrer" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                                <a href="https://valencarballo1.github.io/PruebaPage/AbbalColor.html" target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                                     Ver Demo
                                 </a>
                             </div>
@@ -178,10 +259,12 @@
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4">
             <div class="flex justify-center space-x-8">
-                <a href="https://github.com/Valencarballo1" target="_blank" rel="noopener noreferrer" class="text-2xl hover:text-blue-400 transition">
+                <a href="https://github.com/Valencarballo1" target="_blank" rel="noopener noreferrer"
+                    class="text-2xl hover:text-blue-400 transition">
                     <i class="bi bi-github"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/valentin-carballo-2b9756189/" target="_blank" rel="noopener noreferrer" class="text-2xl hover:text-blue-400 transition">
+                <a href="https://www.linkedin.com/in/valentin-carballo-2b9756189/" target="_blank"
+                    rel="noopener noreferrer" class="text-2xl hover:text-blue-400 transition">
                     <i class="bi bi-linkedin"></i>
                 </a>
                 <a href="mailto:valentincarballo99@gmail.com" class="text-2xl hover:text-blue-400 transition">
@@ -193,4 +276,5 @@
 
     <script src="./script.js"></script>
 </body>
+
 </html>
