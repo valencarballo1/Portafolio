@@ -1,0 +1,79 @@
+---
+import { site, stats } from "../data/site";
+import Icon from "./Icon.astro";
+import MockupReservas from "./mockups/MockupReservas.astro";
+
+const tech = [".NET", "C#", "SQL Server", "JavaScript", "React", "Azure DevOps"];
+---
+
+<section class="relative overflow-hidden pt-32 pb-4 md:pt-40">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="glow left-1/2 top-[-14rem] h-[26rem] w-[46rem] -translate-x-1/2 bg-brand-600/28" aria-hidden="true"></div>
+  <div class="glow right-[-8rem] top-[6rem] h-[22rem] w-[22rem] bg-violet-400/12" aria-hidden="true"></div>
+
+  <div class="shell relative">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="reveal chip !border-emerald-400/25 !bg-emerald-400/8 !text-emerald-200/90">
+        <span class="badge-dot" aria-hidden="true"></span>
+        {site.availabilityLabel}
+      </p>
+
+      <h1 class="reveal mt-6 text-[2.5rem] leading-[1.05] sm:text-6xl lg:text-[4.25rem]" style="--reveal-delay:60ms">
+        Software a medida que reemplaza <span class="gradient-text">planillas y trabajo manual</span>
+      </h1>
+
+      <p class="reveal lead mx-auto mt-6 max-w-2xl" style="--reveal-delay:140ms">
+        Soy <strong class="font-semibold text-paper">{site.name}</strong>, desarrollador full stack con más de 4 años
+        construyendo sistemas de gestión en producción. Analizo tu proceso, diseño la solución y la dejo funcionando:
+        reservas, pagos, administración de clientes y todo lo que hoy se resuelve a mano.
+      </p>
+
+      <div class="reveal mt-9 flex flex-wrap items-center justify-center gap-3" style="--reveal-delay:220ms">
+        <a href="#contacto" class="btn btn-primary">
+          Hablemos de tu proyecto <Icon name="arrowRight" size={16} />
+        </a>
+        <a href="#proyectos" class="btn btn-ghost">
+          Ver proyectos <Icon name="arrowUpRight" size={16} />
+        </a>
+      </div>
+
+      <div class="reveal mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2" style="--reveal-delay:300ms">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.16em] text-mist/60">Trabajo con</span>
+        {tech.map((t) => <span class="text-[13px] font-medium text-mist">{t}</span>)}
+      </div>
+    </div>
+
+    <!-- product shot -->
+    <div class="reveal relative mx-auto mt-16 max-w-4xl" style="--reveal-delay:380ms">
+      <div class="glow inset-x-10 top-10 h-40 bg-brand-500/25" aria-hidden="true"></div>
+      <div
+        class="relative rounded-[20px] border border-white/10 bg-white/[0.03] p-2 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.9)] backdrop-blur"
+      >
+        <MockupReservas accent="#38d6ee" />
+      </div>
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-950 via-ink-950/70 to-transparent"
+        aria-hidden="true"
+      >
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="relative -mt-10 pb-2">
+  <div class="shell">
+    <dl class="reveal grid grid-cols-2 gap-px overflow-hidden rounded-[18px] border border-white/8 bg-white/8 md:grid-cols-4">
+      {
+        stats.map((s) => (
+          <div class="bg-ink-950 px-5 py-6 text-center">
+            <dt class="sr-only">{s.label}</dt>
+            <dd>
+              <span class="block font-display text-3xl font-extrabold tracking-tight text-paper md:text-4xl">{s.value}</span>
+              <span class="mt-1.5 block text-[12.5px] leading-snug text-mist">{s.label}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

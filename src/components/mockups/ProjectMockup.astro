@@ -1,0 +1,27 @@
+---
+import MockupReservas from "./MockupReservas.astro";
+import { url } from "../../lib/paths";
+import MockupProde from "./MockupProde.astro";
+import MockupCrm from "./MockupCrm.astro";
+
+interface Props {
+  mockup: "reservas" | "prode" | "crm";
+  accent?: string;
+  screenshot?: string;
+  alt: string;
+  class?: string;
+}
+const { mockup, accent, screenshot, alt, class: className = "" } = Astro.props;
+---
+
+{
+  screenshot ? (
+    <img src={url(screenshot)} alt={alt} loading="lazy" decoding="async" class={`h-full w-full rounded-[14px] object-cover object-top ${className}`} />
+  ) : (
+    <div role="img" aria-label={alt} class={className}>
+      {mockup === "reservas" && <MockupReservas accent={accent} />}
+      {mockup === "prode" && <MockupProde accent={accent} />}
+      {mockup === "crm" && <MockupCrm accent={accent} />}
+    </div>
+  )
+}

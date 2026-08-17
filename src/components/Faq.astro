@@ -1,0 +1,55 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+// Ajustá estas respuestas a tu forma real de trabajar antes de publicar.
+const faqs = [
+  {
+    q: "¿Cómo se cotiza un proyecto?",
+    a: "Por proyecto cerrado: definimos el alcance y te paso un precio y un plazo antes de empezar. Para trabajos continuos o mantenimiento, trabajo con abono mensual o por hora.",
+  },
+  {
+    q: "¿Cuánto tarda en estar listo?",
+    a: "Depende del alcance, pero la idea siempre es llegar rápido a una primera versión usable y hacerla crecer desde ahí. El cronograma va dentro de la propuesta, con hitos concretos.",
+  },
+  {
+    q: "¿Trabajás con empresas o también con emprendedores?",
+    a: "Con los dos. Empresas que necesitan ordenar un proceso interno o modernizar un sistema, y emprendedores que quieren llevar una idea a un producto online.",
+  },
+  {
+    q: "¿El sistema y el código quedan míos?",
+    a: "Sí. Al cerrar el proyecto te entrego el código fuente y los accesos a todo lo necesario para operarlo. No te quedás atado a mí para poder seguir.",
+  },
+  {
+    q: "¿Hacés el mantenimiento después de la entrega?",
+    a: "Sí. Podés contratar soporte y mejoras con un abono mensual, o pedirlo puntualmente cuando lo necesites.",
+  },
+  {
+    q: "¿También escuchás propuestas laborales?",
+    a: "Sí. Si estás buscando un desarrollador .NET para tu equipo, escribime por mail o LinkedIn y lo charlamos.",
+  },
+];
+---
+
+<section id="faq" class="section border-t border-white/6">
+  <div class="shell">
+    <SectionHeader eyebrow="Preguntas frecuentes" title="Lo que suelen preguntarme antes de empezar" />
+
+    <div class="mx-auto mt-12 max-w-3xl divide-y divide-white/8 overflow-hidden rounded-[18px] border border-white/8 bg-white/[0.02]">
+      {
+        faqs.map((faq) => (
+          <details class="group">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 text-[15px] font-medium transition-colors hover:text-brand-300 md:px-7">
+              {faq.q}
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-white/12 text-mist transition-transform duration-300 group-open:rotate-45">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+            </summary>
+            <p class="px-5 pb-5 pr-14 text-[14.5px] leading-relaxed text-mist md:px-7 md:pr-16">{faq.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

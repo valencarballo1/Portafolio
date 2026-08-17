@@ -1,0 +1,19 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  align?: "left" | "center";
+}
+const { eyebrow, title, description, align = "center" } = Astro.props;
+const isCenter = align === "center";
+---
+
+<div class={`max-w-2xl ${isCenter ? "mx-auto text-center" : ""}`}>
+  <p class="reveal eyebrow">
+    <span class="h-px w-6 bg-brand-400/50" aria-hidden="true"></span>
+    {eyebrow}
+  </p>
+  <h2 class="reveal mt-4 text-3xl sm:text-4xl md:text-[2.75rem]" style="--reveal-delay:60ms">{title}</h2>
+  {description && <p class="reveal lead mt-4" style="--reveal-delay:120ms">{description}</p>}
+</div>

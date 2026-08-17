@@ -1,0 +1,185 @@
+---
+import Base from "../../layouts/Base.astro";
+import { url } from "../../lib/paths";
+import Icon from "../../components/Icon.astro";
+import ProjectMockup from "../../components/mockups/ProjectMockup.astro";
+import { projects } from "../../data/projects";
+import { site } from "../../data/site";
+
+export function getStaticPaths() {
+  return projects.map((project, index) => ({
+    params: { slug: project.slug },
+    props: { project, next: projects[(index + 1) % projects.length] },
+  }));
+}
+
+const { project, next } = Astro.props;
+
+const meta = [
+  { label: "Tipo", value: project.type },
+  { label: "Año", value: project.year },
+  { label: "Mi rol", value: project.role },
+];
+---
+
+<Base
+  title={`${project.name} · Caso de ${site.name}`}
+  description={project.summary}
+>
+  <article>
+    <header class="relative overflow-hidden pt-32 pb-4 md:pt-40">
+      <div class="grid-bg" aria-hidden="true"></div>
+      <div
+        class="glow left-1/2 top-[-12rem] h-[24rem] w-[42rem] -translate-x-1/2 opacity-25"
+        style={`background:${project.accent}`}
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="shell relative">
+        <a
+          href={url("/#proyectos")}
+          class="inline-flex items-center gap-2 text-sm text-mist transition-colors hover:text-paper"
+        >
+          <Icon name="arrowLeft" size={15} /> Volver a proyectos
+        </a>
+
+        <div class="mt-8 max-w-3xl">
+          <span class="chip" style={`border-color:${project.accent}44;color:${project.accent};background:${project.accent}14`}>
+            {project.type}
+          </span>
+          <h1 class="mt-5 text-4xl sm:text-5xl md:text-6xl">{project.name}</h1>
+          <p class="mt-4 text-lg font-medium md:text-xl" style={`color:${project.accent}`}>{project.tagline}</p>
+          <p class="lead mt-5">{project.summary}</p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Abrir el proyecto <Icon name="arrowUpRight" size={16} />
+            </a>
+            <a href={url("/#contacto")} class="btn btn-ghost">Quiero algo parecido</a>
+          </div>
+        </div>
+
+        <div class="relative mt-14">
+          <div
+            class="relative rounded-[20px] border border-white/10 bg-white/[0.03] p-2 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.9)]"
+          >
+            <ProjectMockup
+              mockup={project.mockup}
+              accent={project.accent}
+              screenshot={project.screenshot}
+              alt={`Vista de la interfaz de ${project.name}`}
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="shell mt-14">
+      <dl class="grid gap-px overflow-hidden rounded-[18px] border border-white/8 bg-white/8 sm:grid-cols-3">
+        {
+          meta.map((item) => (
+            <div class="bg-ink-950 px-5 py-5">
+              <dt class="text-[11px] uppercase tracking-[0.14em] text-mist/70">{item.label}</dt>
+              <dd class="mt-1.5 text-[14.5px] font-medium">{item.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <ul class="mt-4 flex flex-wrap gap-2" aria-label="Tecnologías utilizadas">
+        {project.stack.map((tech) => <li class="chip">{tech}</li>)}
+      </ul>
+    </section>
+
+    <section class="section pb-0">
+      <div class="shell grid gap-10 lg:grid-cols-2 lg:gap-14">
+        <div class="reveal">
+          <p class="eyebrow"><span class="h-px w-6 bg-brand-400/50" aria-hidden="true"></span> El problema</p>
+          <h2 class="mt-4 text-2xl sm:text-3xl">Por qué existe este proyecto</h2>
+          <p class="mt-4 text-[15.5px] leading-relaxed text-mist">{project.challenge}</p>
+        </div>
+        <div class="reveal" style="--reveal-delay:100ms">
+          <p class="eyebrow"><span class="h-px w-6 bg-brand-400/50" aria-hidden="true"></span> El enfoque</p>
+          <h2 class="mt-4 text-2xl sm:text-3xl">Cómo lo resolví</h2>
+          <p class="mt-4 text-[15.5px] leading-relaxed text-mist">{project.approach}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <h2 class="reveal text-2xl sm:text-3xl">Qué incluye</h2>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          {
+            project.features.map((feature, i) => (
+              <div class="reveal card p-6" style={`--reveal-delay:${i * 70}ms`}>
+                <div class="flex items-start gap-3">
+                  <span
+                    class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10"
+                    style={`background:${project.accent}14;color:${project.accent}`}
+                  >
+                    <Icon name="check" size={16} />
+                  </span>
+                  <div>
+                    <h3 class="text-[15.5px] font-semibold tracking-tight">{feature.title}</h3>
+                    <p class="mt-1.5 text-[14px] leading-relaxed text-mist">{feature.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="reveal card mt-4 overflow-hidden p-6 md:p-8">
+          <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+            <div>
+              <p class="eyebrow"><span class="h-px w-6 bg-brand-400/50" aria-hidden="true"></span> Resultado</p>
+              <p class="mt-4 text-lg leading-relaxed text-paper md:text-xl">{project.outcome}</p>
+            </div>
+            <dl class="grid grid-cols-3 gap-3 md:w-[22rem]">
+              {
+                project.metrics.map((metric) => (
+                  <div class="rounded-2xl border border-white/8 bg-white/[0.025] px-3 py-3.5 text-center">
+                    <dt class="sr-only">{metric.label}</dt>
+                    <dd>
+                      <span class="block font-display text-lg font-bold leading-none tracking-tight text-paper">
+                        {metric.value}
+                      </span>
+                      <span class="mt-1.5 block text-[11px] leading-tight text-mist">{metric.label}</span>
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell pb-24">
+      <div class="grid gap-4 md:grid-cols-2">
+        <a href={url(`/proyectos/${next.slug}/`)} class="card card-hover group flex items-center justify-between gap-4 p-6">
+          <span>
+            <span class="block text-[11px] uppercase tracking-[0.14em] text-mist/70">Siguiente proyecto</span>
+            <span class="mt-1.5 block text-lg font-semibold tracking-tight">{next.name}</span>
+            <span class="mt-0.5 block text-[13.5px] text-mist">{next.tagline}</span>
+          </span>
+          <span class="text-mist transition-transform duration-300 group-hover:translate-x-1">
+            <Icon name="arrowRight" size={20} />
+          </span>
+        </a>
+        <a href={url("/#contacto")} class="card card-hover group flex items-center justify-between gap-4 p-6">
+          <span>
+            <span class="block text-[11px] uppercase tracking-[0.14em] text-mist/70">¿Tenés un caso parecido?</span>
+            <span class="mt-1.5 block text-lg font-semibold tracking-tight">Charlemos sin compromiso</span>
+            <span class="mt-0.5 block text-[13.5px] text-mist">Te respondo con una primera idea de cómo encararlo.</span>
+          </span>
+          <span class="text-mist transition-transform duration-300 group-hover:translate-x-1">
+            <Icon name="arrowRight" size={20} />
+          </span>
+        </a>
+      </div>
+    </section>
+  </article>
+</Base>

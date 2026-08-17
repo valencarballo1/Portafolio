@@ -1,0 +1,54 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+const steps = [
+  {
+    n: "01",
+    title: "Entendemos el problema",
+    text: "Una charla para mapear cómo trabajás hoy, dónde se pierde tiempo y qué tiene que resolver el sistema. Sin tecnicismos.",
+  },
+  {
+    n: "02",
+    title: "Alcance y propuesta",
+    text: "Te paso por escrito qué incluye, en cuánto tiempo y a qué costo. Si algo queda afuera, queda claro desde el principio.",
+  },
+  {
+    n: "03",
+    title: "Desarrollo con entregas parciales",
+    text: "Vas viendo el avance en un entorno real y ajustamos sobre la marcha. Nada de esperar hasta el final para ver el producto.",
+  },
+  {
+    n: "04",
+    title: "Puesta en producción y soporte",
+    text: "Despliegue, acompañamiento en los primeros usos y soporte para que el equipo lo adopte desde el día uno.",
+  },
+];
+---
+
+<section id="proceso" class="section border-y border-white/6 bg-white/[0.015]">
+  <div class="shell">
+    <SectionHeader
+      eyebrow="Cómo trabajo"
+      title="Un proceso simple y sin sorpresas"
+      description="El mayor riesgo de un proyecto de software no es técnico: es no saber en qué anda. Por eso trabajo con alcance escrito y entregas que se ven."
+    />
+
+    <ol class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {
+        steps.map((step, i) => (
+          <li class="reveal card relative overflow-hidden p-6" style={`--reveal-delay:${i * 80}ms`}>
+            <span
+              class="pointer-events-none absolute -right-2 -top-5 font-display text-[5.5rem] font-extrabold leading-none text-white/[0.045]"
+              aria-hidden="true"
+            >
+              {step.n}
+            </span>
+            <span class="relative font-mono text-xs font-semibold text-brand-400">{step.n}</span>
+            <h3 class="relative mt-3 text-lg font-semibold tracking-tight">{step.title}</h3>
+            <p class="relative mt-2.5 text-[14.5px] leading-relaxed text-mist">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

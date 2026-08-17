@@ -1,0 +1,81 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import Icon from "./Icon.astro";
+
+const services = [
+  {
+    icon: "layers",
+    title: "Sistemas de gestión a medida",
+    description:
+      "Aplicaciones web para administrar lo que hoy vive en Excel y WhatsApp: clientes, turnos, cobros, stock. El sistema se adapta a tu proceso, no al revés.",
+    points: ["Panel administrativo", "Roles y permisos", "Reportes claros"],
+  },
+  {
+    icon: "calendar",
+    title: "Reservas y pagos online",
+    description:
+      "Portales donde tu cliente ve la disponibilidad real, reserva y paga sin llamar a nadie, y tu equipo controla todo desde un único panel.",
+    points: ["Disponibilidad en vivo", "Cobro de la reserva", "Ocupación y recaudación"],
+  },
+  {
+    icon: "bolt",
+    title: "Automatización e integraciones",
+    description:
+      "Conecto sistemas y elimino la carga doble de datos: integraciones con APIs, procesos que corren solos y reportes que se generan sin intervención.",
+    points: ["APIs y servicios", "Procesos programados", "Menos trabajo manual"],
+  },
+  {
+    icon: "wrench",
+    title: "Mantenimiento y evolución .NET",
+    description:
+      "Tomo aplicaciones que ya están en producción, las estabilizo, mejoro su rendimiento y les sumo funcionalidad sin frenar la operación diaria.",
+    points: ["Refactor y performance", "Nuevos módulos", "Continuidad del negocio"],
+  },
+  {
+    icon: "database",
+    title: "Bases de datos SQL Server",
+    description:
+      "Modelado, consultas y procedimientos almacenados. Ordeno los datos para que la información sea confiable y los reportes salgan rápido.",
+    points: ["Modelo de datos", "Stored procedures", "Optimización de consultas"],
+  },
+  {
+    icon: "globe",
+    title: "Sitio web con foco comercial",
+    description:
+      "Presencia web rápida y clara, conectada con tu backoffice para que cada consulta que entra quede registrada y con seguimiento.",
+    points: ["Carga veloz y SEO", "Formularios que convierten", "Conectado a tu gestión"],
+  },
+] as const;
+---
+
+<section id="servicios" class="section">
+  <div class="shell">
+    <SectionHeader
+      eyebrow="Servicios"
+      title="En qué te puedo ayudar"
+      description="Trabajo de punta a punta: entender el problema, definir el alcance, desarrollar y dejarlo funcionando. Sin intermediarios y con una sola persona responsable del resultado."
+    />
+
+    <div class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service, i) => (
+          <article class="reveal card card-hover group p-6" style={`--reveal-delay:${i * 70}ms`}>
+            <span class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent text-brand-300 transition-colors group-hover:text-brand-400">
+              <Icon name={service.icon} size={20} />
+            </span>
+            <h3 class="mt-5 text-lg font-semibold tracking-tight">{service.title}</h3>
+            <p class="mt-2.5 text-[14.5px] leading-relaxed text-mist">{service.description}</p>
+            <ul class="mt-5 space-y-2 border-t border-white/8 pt-4">
+              {service.points.map((point) => (
+                <li class="flex items-center gap-2 text-[13px] text-mist">
+                  <Icon name="check" size={14} class="shrink-0 text-brand-400" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
