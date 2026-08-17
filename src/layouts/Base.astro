@@ -1,0 +1,135 @@
+---
+import "../styles/global.css";
+import { url } from "../lib/paths";
+import { site } from "../data/site";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  ogImage = "/og.png",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).toString();
+const ogUrl = new URL(url(ogImage), Astro.site ?? site.url).toString();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: site.role,
+  email: `mailto:${site.email}`,
+  url: site.url,
+  image: new URL(url(site.photo), Astro.site ?? site.url).toString(),
+  sameAs: [site.links.github, site.links.linkedin],
+  knowsAbout: [
+    ".NET",
+    "C#",
+    "SQL Server",
+    "JavaScript",
+    "Desarrollo web full stack",
+    "Aplicaciones de gestión a medida",
+  ],
+  address: { "@type": "PostalAddress", addressCountry: "AR" },
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={url("/favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={url("/assets/fotoPerfil.png")} />
+    <meta name="theme-color" content="#05070c" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+
+  <body>
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950"
+    >
+      Ir al contenido
+    </a>
+
+    <Nav />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Reveal on scroll: comprobación determinística en cada frame de scroll,
+      // así ninguna sección puede quedar invisible por un scroll rápido.
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let pending = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+
+      const revealAll = () => {
+        pending.forEach((el) => el.classList.add("is-visible"));
+        pending = [];
+      };
+
+      if (reduced) {
+        revealAll();
+      } else {
+        let queued = false;
+        const check = () => {
+          queued = false;
+          const limit = window.innerHeight * 0.94;
+          pending = pending.filter((el) => {
+            if (el.getBoundingClientRect().top < limit) {
+              el.classList.add("is-visible");
+              return false;
+            }
+            return true;
+          });
+          if (!pending.length) {
+            window.removeEventListener("scroll", onFrame);
+            window.removeEventListener("resize", onFrame);
+          }
+        };
+        const onFrame = () => {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(check);
+        };
+
+        window.addEventListener("scroll", onFrame, { passive: true });
+        window.addEventListener("resize", onFrame);
+        window.addEventListener("load", onFrame);
+        check();
+        // Red de seguridad: si algo impidiera el scroll, el contenido igual se muestra.
+        window.setTimeout(revealAll, 6000);
+      }
+    </script>
+  </body>
+</html>

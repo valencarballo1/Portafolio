@@ -1,0 +1,20 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import ProjectRow from "./ProjectRow.astro";
+import { projects } from "../data/projects";
+---
+
+<section id="proyectos" class="section relative overflow-hidden">
+  <div class="glow left-[-10rem] top-40 h-[24rem] w-[24rem] bg-brand-600/12" aria-hidden="true"></div>
+  <div class="shell relative">
+    <SectionHeader
+      eyebrow="Proyectos"
+      title="Productos reales, funcionando hoy"
+      description="No son maquetas: son plataformas online que podés abrir y probar ahora mismo. Cada una nació de un problema concreto y terminó en un sistema que alguien usa todos los días."
+    />
+
+    <div class="mt-16 space-y-20 md:space-y-28">
+      {projects.map((project, i) => <ProjectRow project={project} index={i} />)}
+    </div>
+  </div>
+</section>

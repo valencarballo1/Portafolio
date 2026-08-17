@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import { url } from "../lib/paths";
+import Icon from "../components/Icon.astro";
+import { projects } from "../data/projects";
+---
+
+<Base title="Página no encontrada · Valentín Carballo" description="La página que buscás no existe.">
+  <section class="relative overflow-hidden pt-40 pb-24">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="glow left-1/2 top-[-12rem] h-[22rem] w-[38rem] -translate-x-1/2 bg-brand-600/25" aria-hidden="true"></div>
+
+    <div class="shell relative text-center">
+      <p class="font-mono text-sm font-semibold text-brand-400">404</p>
+      <h1 class="mt-4 text-4xl sm:text-5xl">Esta página no existe</h1>
+      <p class="lead mx-auto mt-4 max-w-lg">
+        Puede que el enlace esté viejo o mal escrito. Volvé al inicio o mirá directamente los proyectos.
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={url("/")} class="btn btn-primary">Volver al inicio <Icon name="arrowRight" size={16} /></a>
+        <a href={url("/#contacto")} class="btn btn-ghost">Contactarme</a>
+      </div>
+
+      <ul class="mx-auto mt-14 grid max-w-3xl gap-3 sm:grid-cols-3">
+        {
+          projects.map((project) => (
+            <li>
+              <a href={url(`/proyectos/${project.slug}/`)} class="card card-hover block p-5 text-left">
+                <span class="block text-[15px] font-semibold tracking-tight">{project.name}</span>
+                <span class="mt-1 block text-[13px] text-mist">{project.tagline}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>

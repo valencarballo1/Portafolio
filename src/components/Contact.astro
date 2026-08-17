@@ -1,0 +1,73 @@
+---
+import { site } from "../data/site";
+import Icon from "./Icon.astro";
+
+const channels = [
+  { icon: "mail", label: "Email", value: site.email, href: `mailto:${site.email}`, span: true },
+  { icon: "linkedin", label: "LinkedIn", value: "Valentín Carballo", href: site.links.linkedin, span: false },
+  { icon: "github", label: "GitHub", value: "Valencarballo1", href: site.links.github, span: false },
+];
+---
+
+<section id="contacto" class="section">
+  <div class="shell">
+    <div
+      class="reveal relative overflow-hidden rounded-[26px] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.015] px-6 py-14 md:px-14 md:py-20"
+    >
+      <div class="grid-bg opacity-70" aria-hidden="true"></div>
+      <div class="glow left-1/2 top-[-6rem] h-64 w-[36rem] -translate-x-1/2 bg-brand-500/30" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-2xl text-center">
+        <p class="chip !border-emerald-400/25 !bg-emerald-400/8 !text-emerald-200/90">
+          <span class="badge-dot" aria-hidden="true"></span>
+          {site.availabilityLabel}
+        </p>
+        <h2 class="mt-6 text-3xl sm:text-4xl md:text-5xl">
+          ¿Tenés un proceso que <span class="gradient-text">todavía se hace a mano?</span>
+        </h2>
+        <p class="lead mx-auto mt-5 max-w-xl">
+          Contame en dos líneas qué necesitás resolver y te respondo con una primera idea de cómo encararlo, sin
+          compromiso. Si hay proyecto, coordinamos una llamada.
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={`mailto:${site.email}?subject=${encodeURIComponent("Consulta por un proyecto de software")}`}
+            class="btn btn-primary"
+          >
+            <Icon name="mail" size={16} /> Escribime un mail
+          </a>
+          <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            <Icon name="linkedin" size={16} /> Contactar por LinkedIn
+          </a>
+        </div>
+
+      </div>
+
+      <div class="relative mx-auto mt-12 max-w-3xl">
+        <ul class="grid gap-3 sm:grid-cols-4">
+          {
+            channels.map((channel) => (
+              <li class={channel.span ? "sm:col-span-2" : ""}>
+                <a
+                  href={channel.href}
+                  target={channel.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel="noopener noreferrer"
+                  class="card card-hover flex items-center gap-3 px-4 py-3.5 text-left"
+                >
+                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/5 text-brand-300">
+                    <Icon name={channel.icon} size={16} />
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block text-[11px] uppercase tracking-wider text-mist/70">{channel.label}</span>
+                    <span class="block break-all text-[13.5px] font-medium">{channel.value}</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

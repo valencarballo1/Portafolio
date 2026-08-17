@@ -1,0 +1,91 @@
+---
+interface Props { accent?: string }
+const { accent = "#4a7cff" } = Astro.props;
+const bars = [34, 52, 44, 68, 58, 80, 72, 94];
+const rows = [
+  { w: 62, state: "#34d399" },
+  { w: 48, state: "#f5b544" },
+  { w: 70, state: "#34d399" },
+  { w: 54, state: "rgba(255,255,255,0.3)" },
+];
+---
+
+<svg viewBox="0 0 640 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+  <rect width="640" height="400" rx="14" fill="#0a1018" />
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" stroke="rgba(255,255,255,0.09)" />
+
+  <path d="M0 14A14 14 0 0 1 14 0h612a14 14 0 0 1 14 14v18H0z" fill="rgba(255,255,255,0.035)" />
+  <line x1="0" y1="32" x2="640" y2="32" stroke="rgba(255,255,255,0.08)" />
+  <circle cx="18" cy="16" r="3.5" fill="rgba(255,255,255,0.18)" />
+  <circle cx="30" cy="16" r="3.5" fill="rgba(255,255,255,0.13)" />
+  <circle cx="42" cy="16" r="3.5" fill="rgba(255,255,255,0.13)" />
+  <rect x="60" y="9" width="190" height="14" rx="7" fill="rgba(255,255,255,0.05)" />
+  <text x="70" y="19.5" font-size="8" fill="rgba(255,255,255,0.4)" font-family="monospace">valbsolutions</text>
+
+  <!-- rail -->
+  <rect x="0" y="32" width="56" height="368" fill="rgba(255,255,255,0.022)" />
+  <line x1="56" y1="32" x2="56" y2="400" stroke="rgba(255,255,255,0.07)" />
+  <rect x="18" y="50" width="20" height="20" rx="6" fill={accent} fill-opacity="0.65" />
+  {[0, 1, 2, 3].map((i) => (
+    <rect x="18" y={88 + i * 32} width="20" height="20" rx="6" fill="rgba(255,255,255,0.07)" />
+  ))}
+
+  <!-- header -->
+  <text x="78" y="60" font-size="13" font-weight="700" fill="rgba(255,255,255,0.92)" font-family="sans-serif">Clientes</text>
+  <rect x="500" y="46" width="116" height="20" rx="10" fill={accent} fill-opacity="0.85" />
+  <text x="558" y="60" font-size="8.5" text-anchor="middle" fill="#fff" font-family="sans-serif">Nuevo cliente</text>
+
+  <!-- KPI tiles -->
+  {[
+    { label: "Cuentas activas", i: 0 },
+    { label: "Consultas nuevas", i: 1 },
+    { label: "En seguimiento", i: 2 },
+  ].map(({ label, i }) => (
+    <g>
+      <rect x={78 + i * 182} y="78" width="166" height="62" rx="10" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.08)" />
+      <text x={94 + i * 182} y="98" font-size="8" fill="rgba(255,255,255,0.42)" font-family="sans-serif">{label}</text>
+      <rect x={94 + i * 182} y="108" width={i === 1 ? 34 : 44} height="14" rx="4" fill="rgba(255,255,255,0.24)" />
+      <rect x={i === 1 ? 136 + i * 182 : 146 + i * 182} y="112" width="26" height="8" rx="4" fill={i === 2 ? "rgba(245,181,68,0.3)" : "rgba(52,211,153,0.28)"} />
+    </g>
+  ))}
+
+  <!-- chart -->
+  <rect x="78" y="154" width="348" height="120" rx="10" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.08)" />
+  <text x="94" y="174" font-size="8" fill="rgba(255,255,255,0.42)" font-family="sans-serif">Consultas por mes</text>
+  {bars.map((h, i) => (
+    <rect x={96 + i * 40} y={258 - h} width="20" height={h} rx="5" fill={accent} fill-opacity={i === 7 ? 0.9 : 0.3} />
+  ))}
+
+  <!-- side card -->
+  <rect x="442" y="154" width="174" height="120" rx="10" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.08)" />
+  <text x="458" y="174" font-size="8" fill="rgba(255,255,255,0.42)" font-family="sans-serif">Estado de cartera</text>
+  {[
+    { w: 128, c: accent, o: 0.85 },
+    { w: 92, c: "#34d399", o: 0.7 },
+    { w: 58, c: "#f5b544", o: 0.7 },
+  ].map((b, i) => (
+    <g>
+      <rect x="458" y={190 + i * 26} width="142" height="8" rx="4" fill="rgba(255,255,255,0.06)" />
+      <rect x="458" y={190 + i * 26} width={b.w} height="8" rx="4" fill={b.c} fill-opacity={b.o} />
+    </g>
+  ))}
+
+  <!-- table -->
+  <rect x="78" y="288" width="538" height="90" rx="10" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.08)" />
+  <line x1="78" y1="312" x2="616" y2="312" stroke="rgba(255,255,255,0.07)" />
+  <text x="94" y="305" font-size="7.5" fill="rgba(255,255,255,0.35)" font-family="sans-serif">Cliente</text>
+  <text x="330" y="305" font-size="7.5" fill="rgba(255,255,255,0.35)" font-family="sans-serif">Estado</text>
+  <text x="470" y="305" font-size="7.5" fill="rgba(255,255,255,0.35)" font-family="sans-serif">Última actividad</text>
+  {rows.map((r, i) => {
+    const y = 322 + i * 15;
+    return (
+      <g>
+        <circle cx="100" cy={y + 4} r="5" fill="rgba(255,255,255,0.12)" />
+        <rect x="112" y={y + 1} width={r.w} height="6" rx="3" fill="rgba(255,255,255,0.22)" />
+        <rect x="330" y={y} width="46" height="8" rx="4" fill={r.state} fill-opacity="0.28" />
+        <rect x="470" y={y + 1} width="52" height="6" rx="3" fill="rgba(255,255,255,0.12)" />
+        <rect x="586" y={y + 1} width="22" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
+      </g>
+    );
+  })}
+</svg>

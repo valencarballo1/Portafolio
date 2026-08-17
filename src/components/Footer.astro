@@ -1,0 +1,71 @@
+---
+import { site, nav } from "../data/site";
+import { url } from "../lib/paths";
+import Icon from "./Icon.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/8 bg-ink-950">
+  <div class="shell py-12">
+    <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+      <div class="max-w-sm">
+        <div class="flex items-center gap-2.5">
+          <span
+            class="grid h-9 w-9 place-items-center rounded-[11px] border border-white/12 bg-gradient-to-br from-brand-400/90 to-brand-600 font-display text-sm font-extrabold text-white"
+            >VC</span
+          >
+          <span class="text-sm font-semibold tracking-tight">
+            {site.name}
+            <span class="block text-[11px] font-normal text-mist">{site.role}</span>
+          </span>
+        </div>
+        <p class="mt-4 text-[13.5px] leading-relaxed text-mist">
+          Desarrollo de software a medida para empresas, clubes y emprendedores. {site.location}.
+        </p>
+      </div>
+
+      <nav aria-label="Pie de página" class="grid grid-cols-2 gap-x-10 gap-y-2 text-sm sm:grid-cols-2">
+        {
+          nav.map((item) => (
+            <a href={url(item.href)} class="text-mist transition-colors hover:text-paper">
+              {item.label}
+            </a>
+          ))
+        }
+        <a href={url("/#contacto")} class="text-mist transition-colors hover:text-paper">Contacto</a>
+        <a href={url(site.cv)} target="_blank" rel="noopener" class="text-mist transition-colors hover:text-paper">CV</a>
+      </nav>
+    </div>
+
+    <div class="mt-10 flex flex-col-reverse items-center gap-5 border-t border-white/8 pt-7 sm:flex-row sm:justify-between">
+      <p class="text-[12.5px] text-mist">© {year} {site.name}. Hecho con Astro.</p>
+      <div class="flex items-center gap-2">
+        <a
+          href={site.links.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          class="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-mist transition-colors hover:border-white/20 hover:text-paper"
+        >
+          <Icon name="github" size={16} />
+        </a>
+        <a
+          href={site.links.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          class="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-mist transition-colors hover:border-white/20 hover:text-paper"
+        >
+          <Icon name="linkedin" size={16} />
+        </a>
+        <a
+          href={`mailto:${site.email}`}
+          aria-label="Enviar un email"
+          class="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-mist transition-colors hover:border-white/20 hover:text-paper"
+        >
+          <Icon name="mail" size={16} />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,57 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import Icon from "./Icon.astro";
+
+const groups = [
+  {
+    icon: "code",
+    title: "Backend",
+    items: ["C#", ".NET", "ASP.NET MVC", "APIs REST", "Arquitectura en capas"],
+  },
+  {
+    icon: "layers",
+    title: "Frontend",
+    items: ["JavaScript", "React", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "jQuery"],
+  },
+  {
+    icon: "database",
+    title: "Datos",
+    items: ["SQL Server", "T-SQL", "Stored procedures", "Modelado relacional", "Optimización de consultas"],
+  },
+  {
+    icon: "wrench",
+    title: "Herramientas",
+    items: ["Git", "GitHub", "Visual Studio", "VS Code", "Netlify", "Astro"],
+  },
+] as const;
+---
+
+<section id="stack" class="section">
+  <div class="shell">
+    <SectionHeader
+      eyebrow="Stack"
+      title="Las herramientas con las que construyo"
+      description="Base sólida en el ecosistema .NET para el backend y los datos, y JavaScript moderno para todo lo que el usuario ve."
+    />
+
+    <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        groups.map((group, i) => (
+          <div class="reveal card card-hover p-6" style={`--reveal-delay:${i * 70}ms`}>
+            <div class="flex items-center gap-3">
+              <span class="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-brand-300">
+                <Icon name={group.icon} size={17} />
+              </span>
+              <h3 class="text-base font-semibold tracking-tight">{group.title}</h3>
+            </div>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <li class="chip">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

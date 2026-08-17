@@ -1,0 +1,83 @@
+---
+import type { Project } from "../data/projects";
+import { url } from "../lib/paths";
+import ProjectMockup from "./mockups/ProjectMockup.astro";
+import Icon from "./Icon.astro";
+
+interface Props { project: Project; index: number }
+const { project, index } = Astro.props;
+const flip = index % 2 === 1;
+---
+
+<article class="reveal grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+  <div class={`relative ${flip ? "lg:order-2" : ""}`}>
+    <div
+      class="glow inset-6 -z-10 h-[70%] opacity-40"
+      style={`background:${project.accent}`}
+      aria-hidden="true"
+    >
+    </div>
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group relative block overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] p-2 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.9)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20"
+      aria-label={`Abrir la demo de ${project.name} en una pestaña nueva`}
+    >
+      <ProjectMockup
+        mockup={project.mockup}
+        accent={project.accent}
+        screenshot={project.screenshot}
+        alt={`Vista de la interfaz de ${project.name}`}
+      />
+      <span
+        class="pointer-events-none absolute inset-2 rounded-[14px] bg-ink-950/60 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100"
+      ></span>
+      <span
+        class="pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 translate-y-2 items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 opacity-0 transition-all duration-300 group-hover:translate-y-[-50%] group-hover:opacity-100"
+      >
+        Abrir demo <Icon name="arrowUpRight" size={15} />
+      </span>
+    </a>
+  </div>
+
+  <div class={flip ? "lg:order-1" : ""}>
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="chip" style={`border-color:${project.accent}44;color:${project.accent};background:${project.accent}14`}>
+        {project.type}
+      </span>
+      <span class="chip">{project.year}</span>
+    </div>
+
+    <h3 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">{project.name}</h3>
+    <p class="mt-1.5 text-base font-medium" style={`color:${project.accent}`}>{project.tagline}</p>
+    <p class="mt-4 text-[15px] leading-relaxed text-mist">{project.summary}</p>
+
+    <dl class="mt-7 grid grid-cols-3 gap-3">
+      {
+        project.metrics.map((metric) => (
+          <div class="rounded-2xl border border-white/8 bg-white/[0.025] px-3 py-3.5">
+            <dt class="sr-only">{metric.label}</dt>
+            <dd>
+              <span class="block font-display text-lg font-bold leading-none tracking-tight text-paper">{metric.value}</span>
+              <span class="mt-1.5 block text-[11.5px] leading-tight text-mist">{metric.label}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul class="mt-6 flex flex-wrap gap-2" aria-label={`Tecnologías de ${project.name}`}>
+      {project.stack.map((tech) => <li class="chip">{tech}</li>)}
+    </ul>
+
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a href={url(`/proyectos/${project.slug}/`)} class="btn btn-primary btn-sm">
+        Ver el caso <Icon name="arrowRight" size={15} />
+      </a>
+      <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
+        Abrir demo <Icon name="arrowUpRight" size={15} />
+      </a>
+    </div>
+  </div>
+</article>
